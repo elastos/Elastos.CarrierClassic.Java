@@ -31,7 +31,7 @@ Run the following commands to install the prerequisite utilities:
 
 ```shell
 $ sudo apt-get update
-$ sudo apt-get install -f default-jre openjdk-8-jdk openjfx mvn build-essential autoconf automake autopoint libtool flex bison libncurses5-dev cmake
+$ sudo apt-get install -f default-jre openjdk-8-jdk openjfx maven build-essential autoconf automake autopoint libtool flex bison libncurses5-dev cmake
 ```
 
 Download the Elastos.NET.Carrier.Native.SDK (not Elastos.Carrier.Java.SDK) repository using Git:
@@ -101,14 +101,14 @@ $ make dist
 
 Extract and open the distribution package (in visual file manager), and open the 'include' folder.
 
-Copy the files ela_carrier.h and ela_session.h .
+Copy the files **ela_carrier.h** and **ela_session.h** .
 
 
 In the downloaded Java SDK, open c_jni_src/include folder
 and paste the ela_carrier.h and ela_session.h header files into the 'include' folder.
 
 
-Open the 'lib' folder from the distribution package and copy the files libcrystal.so, libelacarrier.so and libelasession.so .
+Open the 'lib' folder from the distribution package and copy the files **libcrystal.so**, **libelacarrier.so** and **libelasession.so** .
 
 
 In the downloaded Java SDK, open src/main/resources/lib and paste the files libcrystal.so, libelacarrier.so and libelasession.so
@@ -155,6 +155,10 @@ Execute the command where the messenger.jar file has been placed:
 ```
 java -jar messenger.jar
 ```
+
+![Welcome](https://github.com/elastos/Elastos.NET.Carrier.Java.SDK/blob/master/demo/screenshots/welcome.png)
+
+![Chat](https://github.com/elastos/Elastos.NET.Carrier.Java.SDK/blob/master/demo/screenshots/chatwindow.png)
 
 The messenger application will start and a new address will be automatically created.
 The loading indicator will disappear when the node has successfully joined the network.
