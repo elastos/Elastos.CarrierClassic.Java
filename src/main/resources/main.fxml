@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.elastos.demo.controller.MainController">
+   <left>
+      <Pane prefHeight="400.0" prefWidth="200.0" style="-fx-background-color: #b8bbc1;" BorderPane.alignment="CENTER">
+         <children>
+            <Button layoutX="96.0" layoutY="362.0" mnemonicParsing="false" onAction="#onBack" text="Back" />
+            <Label layoutX="11.0" layoutY="7.0" text="Friends">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Button layoutX="7.0" layoutY="362.0" mnemonicParsing="false" onAction="#onMyProfile" text="My Profile" />
+            <Button layoutX="111.0" layoutY="7.0" mnemonicParsing="false" onAction="#onAddFriend" text="Add" />
+            <VBox fx:id="friendListVboxId" layoutX="14.0" layoutY="50.0" prefHeight="263.0" prefWidth="172.0" spacing="10.0" />
+            <Button layoutX="155.0" layoutY="362.0" mnemonicParsing="false" onAction="#onExit" text="Exit" />
+            <Line endX="200.0" layoutY="41.0" />
+            <Button layoutX="161.0" layoutY="7.0" mnemonicParsing="false" onAction="#onAll" text="All" />
+         </children>
+      </Pane>
+   </left>
+   <center>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="79.0" layoutY="183.0" text="Select a friend from the left panel or add new." />
+         </children>
+      </Pane>
+   </center>
+</BorderPane>
