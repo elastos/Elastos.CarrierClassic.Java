@@ -64,7 +64,7 @@ JNIEnv* attachJvm(int* newlyAttached)
             break;
 
         case JNI_EDETACHED:
-            result = (*javaVm)->AttachCurrentThread(javaVm, &env, NULL);
+            result = (*javaVm)->AttachCurrentThread(javaVm, (void **)&env, NULL);
             if (result != JNI_OK) {
                 logE("Attach current thread to JVM error (%d)", result);
             } else {

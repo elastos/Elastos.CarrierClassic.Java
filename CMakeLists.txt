@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.5.1)
+
 set(CMAKE_VERBOSE_MAKEFILE on)
 
 set(CMAKE_SYSTEM_NAME Linux)
