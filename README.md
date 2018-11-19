@@ -118,8 +118,16 @@ into the lib folder.
 Open a new terminal window.
 
 ***
-Note: Please make sure you have source $JAVA_HOME set. You can check with the command 'echo $JAVA_HOME' in the terminal.
-If you configure JAVA_HOME now, please restart the computer to update the configuration.
+Note: To make sure all Java related packages are installed as described in the prerequisites section, run the following commands:
+
+```
+$ sudo apt-get update
+$ sudo apt-get install default-jre openjdk-8-jdk openjfx maven
+```
+
+Please make sure you have source $JAVA_HOME set. You can check with the command 'echo $JAVA_HOME' in the terminal.
+If you configure JAVA_HOME now, please restart the computer (or virtual machine) to update the configuration.
+
 ***
 
 Change directory to the Elastos.Carrier.Java.SDK folder where the MakeLists.txt is present.
