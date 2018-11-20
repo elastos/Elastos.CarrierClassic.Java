@@ -6,8 +6,9 @@ Elastos Carrier Java SDK
 The Elastos Carrier Java SDK allows access to the [Elastos Carrier Native](https://github.com/elastos/Elastos.NET.Carrier.Native.SDK) API (written in C programming language)
 through Java Native Interface (JNI).
 
-To explore the features of the Carrier and the Java SDK, please see the Elastos Messenger which is implemented
+To explore the features of the Carrier and the Java SDK, please see the [Elastos Messenger](https://github.com/elastos/Elastos.NET.Carrier.Java.SDK/tree/master/demo) which is implemented
 using Java and JavaFX for the Graphical User Interface (GUI).
+See [Screenshots](https://github.com/elastos/Elastos.NET.Carrier.Java.SDK/tree/master/demo/screenshots).
 
 The Elastos Carrier is a decentralized and encrypted peer-to-peer (P2P) communication framework that routes network traffic between virtual machines and Decentralized Applications (DApps).
 
