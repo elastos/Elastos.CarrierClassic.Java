@@ -406,8 +406,8 @@ void cbOnFriendMessage(ElaCarrier* carrier, const char* friendId, const void* me
 }
 
 static
-void cbOnFriendInviteRquest(ElaCarrier* carrier, const char* from, const void* hello,
-                            size_t length, void* context)
+void cbOnFriendInviteRquest(ElaCarrier* carrier, const char* from, const char *bundle, 
+                            const void* hello, size_t length, void* context)
 {
     HandlerContext* hc = (HandlerContext*)context;
     jstring jfrom;
