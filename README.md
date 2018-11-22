@@ -6,18 +6,28 @@ Elastos Carrier Java SDK
 The Elastos Carrier Java SDK allows access to the [Elastos Carrier Native](https://github.com/elastos/Elastos.NET.Carrier.Native.SDK) API (written in C programming language)
 through Java Native Interface (JNI).
 
+The Elastos Carrier Java SDK functionalities are dependent on the Elastos Carrier Native SDK. Major changes
+to the coding of the Carrier Native SDK most often result in the need to adjust the Carrier Java SDK.
+
+Well tested, compatible versions of both the Carrier Native SDK and the Carrier Java SDK can be downloaded as [Releases](https://github.com/elastos/Elastos.NET.Carrier.Java.SDK/releases) .
+
+If any issues are found, please [report it here](https://github.com/elastos/Elastos.NET.Carrier.Java.SDK/issues) .
+In case you also know how to correct the coding or documentation, please submit a [Pull Request](https://github.com/elastos/Elastos.NET.Carrier.Java.SDK/pulls) .
+
+To see the current status of the Elastos Carrier Java SDK, please see our [Project Roadmap](https://github.com/elastos/Elastos.NET.Carrier.Java.SDK/projects/1).
+
+To read more about the Elastos Carrier Java SDK, please see the [Wiki](https://github.com/elastos/Elastos.NET.Carrier.Java.SDK/wiki) .
+
+Note: The Java SDK is a work in progress and is not intended for productive use. Currently, the Maven project can only be built on a Ubuntu / Debian / Linux host.
+
+#### Elastos Carrier Messenger Demo
+
 To explore the features of the Carrier and the Java SDK, please see the [Elastos Messenger](https://github.com/elastos/Elastos.NET.Carrier.Java.SDK/tree/master/demo) which is implemented
 using Java and JavaFX for the Graphical User Interface (GUI).
 See [Screenshots](https://github.com/elastos/Elastos.NET.Carrier.Java.SDK/tree/master/demo/screenshots).
 
-The Elastos Carrier is a decentralized and encrypted peer-to-peer (P2P) communication framework that routes network traffic between virtual machines and Decentralized Applications (DApps).
-
-The authentication process of peer nodes utilizes the Elastos Decentralized ID (DID) sidechain. （TODO）
-
-Note: The Java SDK is a work in progress and is not intended for productive use. Currently, the Maven project can only be built on a Ubuntu / Debian / Linux host.
-
-**An executable .jar file of the Messenger can be downloaded from the '/demo' folder which does not require any compilation.
-After testing, it is recommended to build your own from the source code provided."**
+An executable .jar file of the Messenger can be downloaded from the '/demo' folder which does not require any compilation.
+After testing, it is recommended to build your own from the source code provided."
 
 **Please note, building and running of the messenger demo application is currently only possible on a Ubuntu / Debian / Linux hosts. Windows and MacOS will be added in the near future.**
 
@@ -97,7 +107,7 @@ $ make dist
 
 *****************
 
-## 3. Merge and package shared native libraries
+#### 3. Merge and package shared native libraries
 
 
 Extract and open the distribution package (in visual file manager), and open the 'include' folder.
@@ -152,7 +162,7 @@ $ mvn clean package assembly:single
 The output will be a .jar file (messenger.jar) which is placed in the folder '/target'.
 
 
-## 4. Start the Messenger demo
+#### 4. Start the Messenger demo
 
 Note: For easy access, it is recommended to move the previously generated messenger.jar file to a different location.
 Create a new folder and place the .jar file inside. When running the application, it will create two additional folders.
@@ -162,7 +172,7 @@ Open a new terminal.
 
 Execute the command where the messenger.jar file has been placed:
 ```
-java -jar messenger.jar
+$ java -jar messenger.jar
 ```
 
 ![Welcome](https://github.com/elastos/Elastos.NET.Carrier.Java.SDK/blob/master/demo/screenshots/welcome.png)
