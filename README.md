@@ -177,9 +177,9 @@ Execute the command where the messenger.jar file has been placed:
 $ java -jar messenger.jar
 ```
 
-![Welcome](https://github.com/elastos/Elastos.NET.Carrier.Java.SDK/blob/master/demo/screenshots/welcome.png)
+![Welcome](https://github.com/elastos/Elastos.NET.Carrier.Java.SDK/blob/master/demo/screenshots/Linux/welcome.png)
 
-![Chat](https://github.com/elastos/Elastos.NET.Carrier.Java.SDK/blob/master/demo/screenshots/chatwindow.png)
+![Chat](https://github.com/elastos/Elastos.NET.Carrier.Java.SDK/blob/master/demo/screenshots/Linux/chatwindow.png)
 
 The messenger application will start and a new address will be automatically created.
 The loading indicator will disappear when the node has successfully joined the network.
@@ -367,9 +367,9 @@ Execute the command where the messenger.jar file has been placed:
 $ java -jar messenger.jar
 ```
 
-![Welcome](https://github.com/elastos/Elastos.NET.Carrier.Java.SDK/blob/master/demo/screenshots/welcome.png)
+![Welcome](https://github.com/elastos/Elastos.NET.Carrier.Java.SDK/blob/master/demo/screenshots/Windows/welcome.png)
 
-![Chat](https://github.com/elastos/Elastos.NET.Carrier.Java.SDK/blob/master/demo/screenshots/chatwindow.png)
+![Chat](https://github.com/elastos/Elastos.NET.Carrier.Java.SDK/blob/master/demo/screenshots/Linux/chatwindow.png)
 
 The messenger application will start and a new address will be automatically created.
 The loading indicator will disappear when the node has successfully joined the network.
