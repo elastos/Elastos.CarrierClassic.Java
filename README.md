@@ -225,14 +225,26 @@ Additional tools are optional, some additional ones are installed by default wit
 
 After modifications, restarting of Visual Studio might be required.
 
-To build for a 32-bit target , select `x86 Native Tools Command Console` to run building commands, otherwise, select `x64 Native Tools Command Console` for a 64-bit target.
 
 #### 3. Build shared native libraries on a Windows host
 
 To compile the project from source code for the target to run on Windows, carry out the following steps:
 
-In Visual Studio, open Visual Studio Command Prompt from the menu "Tools >> Visual Studio Command Prompt"
-It will open a new terminal window.
+Open a new Windows Command Line.
+**Note: The command line should be started as a Windows Desktop App, NOT from Visual Studio.**
+
+Navigate to the Visual Studio Build tools in command line:</br>
+Note: The path might be different with custom Visual Studio installation path.
+```
+$ cd C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build
+```
+
+Run:
+```
+$ vcvars64.bat
+```
+
+**Carry out the following commands in the same command prompt window!**
 
 Navigate to the previously downloaded folder that contains the source code of the Carrier project.
 
