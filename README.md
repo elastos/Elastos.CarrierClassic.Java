@@ -27,7 +27,7 @@ using Java and JavaFX for the Graphical User Interface (GUI).
 See [Screenshots](https://github.com/elastos/Elastos.NET.Carrier.Java.SDK/tree/master/demo/screenshots).
 
 An executable .jar file of the Messenger can be downloaded from the '/demo' folder which does not require any compilation.
-After testing, it is recommended to build your own from the source code provided."
+After testing, it is recommended to build your own from the source code provided.
 
 **Please note, building and running of the messenger demo application is currently only possible on a Ubuntu / Debian / Linux hosts. Windows and MacOS will be added in the near future.**
 
