@@ -120,41 +120,69 @@ public class ElastosCarrier extends Thread{
 	
 	private static void _loadElastosLib(){
 		try{
-			String jniDirName="jni";
-			File jniDir=new File(jniDirName);
-			if(!jniDir.exists()){
-				jniDir.mkdir();
-			}
-			
-			ArrayList<String> soList=new ArrayList<String>();
-			soList.add("libcrystal.so");
-			soList.add("libelacarrier.so");
-			soList.add("libelasession.so");
-			soList.add("libcarrierjni.so");
-			
-			for(int i=0;i<soList.size();i++){
-				String resourcePath="/lib";
-				String soFile=soList.get(i);
-			
-				InputStream is=ClassLoader.class.getResourceAsStream(resourcePath+"/"+soFile);
-				File file=new File(jniDirName+"/"+soFile);
-				OutputStream os=new FileOutputStream(file);
-				byte[] buffer=new byte[1024];
-				int length;
-				while((length=is.read(buffer))!=-1){
-					os.write(buffer, 0, length);
+			String resourcePath="/lib/";
+			ArrayList<String> libList=new ArrayList<String>();
+			String osName=System.getProperty("os.name");
+			if(osName.equals("Linux")){
+				String jniDirName="jni";
+				File jniDir=new File(jniDirName);
+				if(!jniDir.exists()){
+					jniDir.mkdir();
 				}
-				is.close();
-				os.close();
+				
+				resourcePath+="linux";
+				libList.add("libcrystal.so");
+				libList.add("libelacarrier.so");
+				libList.add("libelasession.so");
+				libList.add("libcarrierjni.so");
+				
+				for(int i=0;i<libList.size();i++){
+					String libFile=libList.get(i);
+					InputStream is=ClassLoader.class.getResourceAsStream(resourcePath+"/"+libFile);
+					File file=new File(jniDirName+"/"+libFile);
+					OutputStream os=new FileOutputStream(file);
+					byte[] buffer=new byte[1024];
+					int length;
+					while((length=is.read(buffer))!=-1){
+						os.write(buffer, 0, length);
+					}
+					is.close();
+					os.close();
+				}
+				
+				String jniPath=jniDir.getAbsolutePath();
+				_addJniLibraryPathForLinux(jniPath);
 			}
-		
-			String jniPath=jniDir.getAbsolutePath();
-			_addJniLibraryPath(jniPath);
+			else{
+				resourcePath+="windows";
+				libList.add("crystal.dll");
+				libList.add("elacarrier.dll");
+				libList.add("elasession.dll");
+				libList.add("libcarrierjni.dll");
+				libList.add("pthreadVC2.dll");
+				libList.add("libgcc_s_seh-1.dll");
+				libList.add("ucrtbased.dll");
+				libList.add("vcruntime140d.dll");
+				
+				for(int i=0;i<libList.size();i++){
+					String libFile=libList.get(i);
+					InputStream is=ClassLoader.class.getResourceAsStream(resourcePath+"/"+libFile);
+					File file=new File(libFile);
+					OutputStream os=new FileOutputStream(file);
+					byte[] buffer=new byte[1024];
+					int length;
+					while((length=is.read(buffer))!=-1){
+						os.write(buffer, 0, length);
+					}
+					is.close();
+					os.close();
+				}
+			}
 		}
 		catch(IOException ioe){}
 	}
 	
-	private static void _addJniLibraryPath(String pathToAdd){
+	private static void _addJniLibraryPathForLinux(String pathToAdd){
 		try{
 			final Field usrPathsField=ClassLoader.class.getDeclaredField("usr_paths");
 			usrPathsField.setAccessible(true);
