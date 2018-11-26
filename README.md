@@ -257,23 +257,20 @@ $ cmake -G "NMake Makefiles" -DCMAKE_INSTALL_PREFIX=outputs ..\..
 ```
 
 
-Build the program: <br/>
-Note: If "make" fails due to missing permissions, use "sudo make" instead.
+Build the program:
 ```shell
 $ nmake
 ```
 
 
 
-Install the program: <br/>
-Note: If "make install" fails due to missing permissions, use "sudo make install" instead.
+Install the program:
 ```shell
 $ nmake install
 ```
 
 
-Create distribution package: <br/>
-Note: If "make dist" fails due to missing permissions, use "sudo make dist" instead.
+Create distribution package:
 ```
 $ nmake dist
 ```
