@@ -227,7 +227,7 @@ After modifications, restarting of Visual Studio might be required.
 
 To build for a 32-bit target , select `x86 Native Tools Command Console` to run building commands, otherwise, select `x64 Native Tools Command Console` for a 64-bit target.
 
-#### 2. Build from source on Windows host
+#### 3. Build from source on Windows host
 
 To compile the project from source code for the target to run on Windows, carry out the following steps:
 
@@ -280,9 +280,9 @@ $ nmake dist
 
 ***********
 
-#### 3. Merge and package shared native libraries
+#### 4. Merge and package shared native libraries
 
-##### 3.1 Copy the Header files
+##### 4.1 Copy the Header files
 Extract and open the distribution package of the **Carrier Native SDK** (not the Java SDK) previously created in a visual file manager, and open the 'include' folder.
 
 Copy the files **ela_carrier.h** and **ela_session.h** .
@@ -291,14 +291,14 @@ Copy the files **ela_carrier.h** and **ela_session.h** .
 In the downloaded **Carrier Java SDK**, navigate to the 'c_jni_src/windows/include' folder
 and paste the ela_carrier.h and ela_session.h header files into the **c_jni_src/windows/include** folder.
 
-##### 3.2 Copy the Shared Native Libraries
+##### 4.2 Copy the Shared Native Libraries
 Open the '/bin' folder of the distribution package of the **Carrier Native SDK** (not the Java SDK) and copy the files **crystal.dll**, **elacarrier.dll**, **elasession.dll** and **pthreadVC2.dll**.
 
 
 In the downloaded **Carrier Java SDK**, open src/main/resources/lib/windows and paste the files **crystal.dll**, **elacarrier.dll**, **elasession.dll** and **pthreadVC2.dll** into the lib folder.
 
 
-##### 3.3 Build the program
+##### 4.3 Build the program
 
 **Prerequisites**
 - Java JDK (https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
@@ -339,7 +339,7 @@ $ mvn clean package assembly:single
 The output will be a .jar file (messenger.jar) which is placed in the folder '/target'.
 
 
-#### 4. Start the Messenger demo
+#### 5. Start the Messenger demo
 
 Note: For easy access, it is recommended to move the previously generated messenger.jar file to a different location.
 Create a new folder and place the .jar file inside. When running the application, it will create two additional folders.
