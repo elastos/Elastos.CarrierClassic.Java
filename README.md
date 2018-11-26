@@ -141,8 +141,10 @@ If you configure JAVA_HOME now, please restart the computer (or virtual machine)
 
 ***
 
-Change directory to the Elastos.Carrier.Java.SDK folder where the MakeLists.txt is present.
-
+Change directory to the **Elastos.Carrier.Java.SDK/c_jni_src/linux** folder where the CMakeLists.txt is present.
+```
+$ cd YOUR-PATH/Elastos.NET.Carrier.Native.SDK/c_jni_src/linux
+```
 
 Generate the required Makefile in the current directory:
 ```
