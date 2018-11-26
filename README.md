@@ -213,12 +213,12 @@ In the menu, go to "Tools >> Get Tools and Features", it will open the Visual St
 Make sure 'Desktop development with C++' Workload is installed.
 
 On the right side, make sure in the 'Installation details' all of the following are installed:
-"Windows 8.1 SDK and UCRT SDK" <- might have to be selected additionally
-"Windows 10 SDK (10.0.17134.0)" <- might have to be selected additionally
-"VC++ 2017 version 15.9 ... tools"
-"C++ Profiling tools"
-"Visual C++ tools for CMake"
-"Visual C++ ATL for x86 and x64"
+"Windows 8.1 SDK and UCRT SDK" <- might have to be selected additionally <br/>
+"Windows 10 SDK (10.0.17134.0)" <- might have to be selected additionally <br/>
+"VC++ 2017 version 15.9 ... tools" <br/>
+"C++ Profiling tools" <br/>
+"Visual C++ tools for CMake" <br/>
+"Visual C++ ATL for x86 and x64" <br/>
 Additional tools are optional, some additional ones are installed by default with the Workload.
 
 After modifications, restarting of Visual Studio might be required.
