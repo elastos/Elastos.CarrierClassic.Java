@@ -160,6 +160,9 @@ public class ElastosCarrier extends Thread{
 				libList.add("elasession.dll");
 				libList.add("libcarrierjni.dll");
 				libList.add("pthreadVC2.dll");
+				libList.add("libgcc_s_seh-1.dll");
+				libList.add("ucrtbased.dll");
+				libList.add("vcruntime140d.dll");
 				
 				for(int i=0;i<libList.size();i++){
 					String libFile=libList.get(i);
