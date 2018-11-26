@@ -298,7 +298,7 @@ Open the '/bin' folder of the distribution package of the **Carrier Native SDK**
 In the downloaded **Carrier Java SDK**, open src/main/resources/lib/windows and paste the files **crystal.dll**, **elacarrier.dll**, **elasession.dll** and **pthreadVC2.dll** into the lib folder.
 
 
-##### 4.3 Build the program
+#### 5. Build the program
 
 **Prerequisites**
 - Java JDK (https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
@@ -339,7 +339,7 @@ $ mvn clean package assembly:single
 The output will be a .jar file (messenger.jar) which is placed in the folder '/target'.
 
 
-#### 5. Start the Messenger demo
+#### 6. Start the Messenger demo
 
 Note: For easy access, it is recommended to move the previously generated messenger.jar file to a different location.
 Create a new folder and place the .jar file inside. When running the application, it will create two additional folders.
