@@ -50,7 +50,7 @@ Download the Elastos.NET.Carrier.Native.SDK (not Elastos.Carrier.Java.SDK) repos
 $ git clone https://github.com/elastos/Elastos.NET.Carrier.Native.SDK
 ```
 
-#### 2. Create shared native libraries on host (Ubuntu / Debian / Linux)
+#### 2. Build shared native libraries on host (Ubuntu / Debian / Linux)
 
 To compile the project from source code for the target to run on Ubuntu / Debian / Linux, carry out the following steps:
 
@@ -190,7 +190,7 @@ It is technically possible to hide it, but currently it may be used for debuggin
 ***
 
 
-### Windows
+## Build from source on Windows host
 
 #### 1. Brief introduction
 
@@ -227,7 +227,7 @@ After modifications, restarting of Visual Studio might be required.
 
 To build for a 32-bit target , select `x86 Native Tools Command Console` to run building commands, otherwise, select `x64 Native Tools Command Console` for a 64-bit target.
 
-#### 3. Build from source on Windows host
+#### 3. Build shared native libraries on a Windows host
 
 To compile the project from source code for the target to run on Windows, carry out the following steps:
 
