@@ -323,7 +323,7 @@ $ cd YOUR-PATH/Elastos.NET.Carrier.Java.SDK/c_jni_src/windows
 
 Generate the required Makefile in the current directory:
 ```
-$ cmake .
+$ cmake -G "MinGW Makefiles" .
 ```
 
 Build the program:
