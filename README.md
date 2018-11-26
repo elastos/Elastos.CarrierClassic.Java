@@ -109,23 +109,23 @@ $ make dist
 
 #### 3. Merge and package shared native libraries
 
-
-Extract and open the distribution package (in visual file manager), and open the 'include' folder.
+##### 3.1 Copy the Header files
+Extract and open the distribution package of the **Carrier Native SDK** (not the Java SDK) previously created in a visual file manager, and open the 'include' folder.
 
 Copy the files **ela_carrier.h** and **ela_session.h** .
 
 
-In the downloaded Java SDK, open c_jni_src/include folder
-and paste the ela_carrier.h and ela_session.h header files into the 'include' folder.
+In the downloaded **Carrier Java SDK**, navigate to the 'c_jni_src/linux/include' folder
+and paste the ela_carrier.h and ela_session.h header files into the **c_jni_src/linux/include** folder.
+
+##### 3.2 Copy the Shared Native Libraries
+Open the 'lib' folder of the distribution package of the **Carrier Native SDK** (not the Java SDK) and copy the files **libcrystal.so**, **libelacarrier.so** and **libelasession.so** .
 
 
-Open the 'lib' folder from the distribution package and copy the files **libcrystal.so**, **libelacarrier.so** and **libelasession.so** .
+In the downloaded **Carrier Java SDK**, open src/main/resources/lib/linux and paste the files **libcrystal.so**, **libelacarrier.so** and **libelasession.so** into the lib folder.
 
 
-In the downloaded Java SDK, open src/main/resources/lib and paste the files libcrystal.so, libelacarrier.so and libelasession.so
-into the lib folder.
-
-
+##### 3.3 Build the program
 Open a new terminal window.
 
 ***
