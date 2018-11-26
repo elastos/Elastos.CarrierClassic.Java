@@ -187,8 +187,6 @@ The loading indicator will disappear when the node has successfully joined the n
 Note: Please do not close the terminal in the background when the messenger is running.
 It is technically possible to hide it, but currently it may be used for debugging.
 
-***
-
 
 ## Build from source on Windows host
 
@@ -287,7 +285,8 @@ Create distribution package:
 $ nmake dist
 ```
 
-***********
+Close the command line.
+
 
 #### 4. Merge and package shared native libraries
 
@@ -340,6 +339,12 @@ Build the program:
 $ mingw32-make
 ```
 Note: The mingw32-make command will build both the 32 bit and the 64 bit versions.
+
+
+Move up two directories to the Elastos.NET.Carrier.Java.SDK folder.
+```
+$ cd ../..
+```
 
 Package the project with Maven:
 ```
