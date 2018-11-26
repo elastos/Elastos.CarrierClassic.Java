@@ -54,7 +54,13 @@ public class Carrier {
 	private boolean didKill = false;
 
 	static {
-		System.loadLibrary("carrierjni");
+		String osName=System.getProperty("os.name");
+		if(osName.equals("Linux")){
+			System.loadLibrary("carrierjni");
+		}
+		else{
+			System.loadLibrary("libcarrierjni");
+		}
 	}
 
 	private static class Callbacks {
