@@ -313,7 +313,8 @@ If you configure JAVA_HOME now, please restart the computer (or virtual machine)
 ***
 
 
-Open a new Command Line.
+Open a new Windows Command Line.
+**Note: The command line should be started as a Windows Desktop App, NOT from Visual Studio.**
 
 Change directory to the **Elastos.Carrier.Java.SDK/c_jni_src/windows** folder where the CMakeLists.txt is present.
 ```
