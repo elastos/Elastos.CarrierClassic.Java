@@ -18,7 +18,7 @@ To see the current status of the Elastos Carrier Java SDK, please see our [Proje
 
 To read more about the Elastos Carrier Java SDK, please see the [Wiki](https://github.com/elastos/Elastos.NET.Carrier.Java.SDK/wiki) .
 
-Note: The Java SDK is a work in progress and is not intended for productive use. Currently, the Maven project can only be built on a Ubuntu / Debian / Linux host.
+Note: The Java SDK is a work in progress and is not intended for productive use.
 
 #### Elastos Carrier Messenger Demo
 
