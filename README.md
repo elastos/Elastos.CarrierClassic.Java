@@ -20,7 +20,35 @@ To read more about the Elastos Carrier Java SDK, please see the [Wiki](https://g
 
 Note: The Java SDK is a work in progress and is not intended for productive use.
 
-#### Elastos Carrier Messenger Demo
+## Table of Contents
+- [Elastos Carrier Java SDK](#elastos-carrier-java-sdk)
+	- [Introduction](#introduction)
+	- [Table of Contents](#table-of-contents)
+	- [Elastos Carrier Messenger Demo](#elastos-carrier-messenger-demo)
+- [Build from source on Ubuntu / Debian / Linux host](#build-from-source-on-ubuntu--debian--linux-host)
+	- [1. Install Pre-Requirements](#1-install-pre-requirements)
+	- [2. Build shared native libraries on host (Ubuntu / Debian / Linux)](#2-build-shared-native-libraries-on-host-ubuntu--debian--linux)
+	- [3. Merge and package shared native libraries](#3-merge-and-package-shared-native-libraries)
+		- [3.1 Copy the Header files](#31-copy-the-header-files)
+		- [3.2 Copy the Shared Native Libraries](#32-copy-the-shared-native-libraries)
+		- [3.3 Build the program](#33-build-the-program)
+	- [4. Start the Messenger demo](#4-start-the-messenger-demo)
+- [Build from source on Windows host](#build-from-source-on-windows-host)
+	- [1. Brief introduction](#1-brief-introduction)
+	- [2. Set up Environment](#2-set-up-environment)
+	- [3. Build shared native libraries on a Windows host](#3-build-shared-native-libraries-on-a-windows-host)
+	- [4. Merge and package shared native libraries](#4-merge-and-package-shared-native-libraries)
+		- [4.1 Copy the Header files](#41-copy-the-header-files)
+		- [4.2 Copy the Shared Native Libraries](#42-copy-the-shared-native-libraries)
+	- [5. Build the program](#5-build-the-program)
+	- [6. Start the Messenger demo](#6-start-the-messenger-demo)
+- [Current limitations](#current-limitations)
+- [Contribution](#contribution)
+- [Acknowledgments](#acknowledgments)
+- [License](#license)
+
+
+## Elastos Carrier Messenger Demo
 
 To explore the features of the Carrier and the Java SDK, please see the [Elastos Messenger](https://github.com/elastos/Elastos.NET.Carrier.Java.SDK/tree/master/demo) which is implemented
 using Java and JavaFX for the Graphical User Interface (GUI).
