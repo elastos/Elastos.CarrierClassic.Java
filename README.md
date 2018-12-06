@@ -57,7 +57,7 @@ See [Screenshots](https://github.com/elastos/Elastos.NET.Carrier.Java.SDK/tree/m
 An executable .jar file of the Messenger can be downloaded from the '/demo' folder which does not require any compilation.
 After testing, it is recommended to build your own from the source code provided.
 
-**Please note, building and running of the messenger demo application is currently only possible on a Ubuntu / Debian / Linux hosts. Windows and MacOS will be added in the near future.**
+**Please note, building and running of the messenger demo application is currently only possible on a Ubuntu / Debian / Linux and Windows hosts. MacOS will be added in the near future.**
 
 
 ## Build from source on Ubuntu / Debian / Linux host
