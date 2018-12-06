@@ -72,6 +72,8 @@ Run the following commands to install the prerequisite utilities:
 $ sudo apt-get update
 $ sudo apt-get install -f default-jre openjdk-8-jdk openjfx maven build-essential autoconf automake autopoint libtool flex bison libncurses5-dev cmake
 ```
+Note: In case Java is already installed, please check the version with the 'java -version' command, Java version 8 is recommended.
+Java 11 does not contain the JavaFX SDK and must be additionally installed.
 
 Download the Elastos.NET.Carrier.Native.SDK (not Elastos.Carrier.Java.SDK) repository using Git:
 ```shell
@@ -229,6 +231,9 @@ With CMake, Elastos Carrier can be cross-compiled to run only on Windows as targ
 - Visual Studio IDE is required. The Community version can be downloaded at https://visualstudio.microsoft.com/downloads/ for free.
 - Download and install "Visual Studio Command Prompt (devCmd)" from https://marketplace.visualstudio.com/items?itemName=ShemeerNS.VisualStudioCommandPromptdevCmd .
 - Install 'Desktop development with C++' Workload
+
+Note: In case Java is already installed, please check the version with the 'java -version' command, Java version 8 is recommended.
+Java 11 does not contain the JavaFX SDK and must be additionally installed. (https://www.oracle.com/technetwork/java/javafx2-archive-download-1939373.html).
 
 
 Start the program 'Visual Studio Installer'.
