@@ -22,31 +22,17 @@
 
 package org.elastos.carrier;
 
-public class Log {
-	private static final boolean DEBUG = BuildConfig.DEBUG;
-
-	public static void i(String tag, String msg) {
-		if (DEBUG)
-			android.util.Log.i(tag, msg);
-	}
-
-	public static void e(String tag, String msg) {
-		if (DEBUG)
-			android.util.Log.e(tag, msg);
-	}
-
-	public static void d(String tag, String msg) {
-		if (DEBUG)
-			android.util.Log.d(tag, msg);
-	}
-
-	public static void v(String tag, String msg) {
-		if (DEBUG)
-			android.util.Log.v(tag, msg);
-	}
-
-	public static void w(String tag, String msg) {
-		if (DEBUG)
-			android.util.Log.w(tag, msg);
-	}
+interface GroupPeersIterator {
+    /**
+     * The callback function to iterate each peer in a group.
+     *
+     * @param
+     *         peerInfo        The information of a peer in the group
+     * @param
+     *         context         The application defined context data.
+     *
+     * @return
+     *         True to continue iterate next peer, false to stop iteration.
+     */
+    boolean onIterated(Group.PeerInfo peerInfo, Object context);
 }
