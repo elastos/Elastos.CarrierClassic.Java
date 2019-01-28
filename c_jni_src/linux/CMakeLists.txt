@@ -20,8 +20,11 @@ set(SOURCES
 	${CMAKE_SOURCE_DIR}/session.c
 	${CMAKE_SOURCE_DIR}/sessionManager.c
 	${CMAKE_SOURCE_DIR}/sessionUtils.c
-	${CMAKE_SOURCE_DIR}/stream.c)
+	${CMAKE_SOURCE_DIR}/stream.c
+	${CMAKE_SOURCE_DIR}/fileTransfer.c
+    ${CMAKE_SOURCE_DIR}/fileTransferManager.c
+    ${CMAKE_SOURCE_DIR}/fileTransferUtils.c)
 
 add_library(carrierjni SHARED ${SOURCES})
 
-target_link_libraries(carrierjni crystal elacarrier elasession)
+target_link_libraries(carrierjni crystal elacarrier elasession elafiletransfer)

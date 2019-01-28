@@ -20,19 +20,19 @@
  * SOFTWARE.
  */
 
-package org.elastos.carrier.session;
+package org.elastos.carrier.filetransfer;
 
 import org.elastos.carrier.Carrier;
 import org.elastos.carrier.Log;
 import org.elastos.carrier.exceptions.CarrierException;
 
 /**
- * The class representing Carrier session manager.
+ * The class representing Carrier file transfer manager.
  */
 public class Manager {
-    private static final String TAG = "SessionMgr";
+    private static final String TAG = "FileTransMgr";
 
-    private static Manager sessionMgr;
+    private static Manager fileTransMgr;
 
     private Carrier carrier;
     private boolean didCleanup;
@@ -40,30 +40,26 @@ public class Manager {
     // jni native methods.
     private static native boolean native_init(Carrier carrier, ManagerHandler handler);
     private static native void native_cleanup(Carrier carrier);
-    private native Session create_session(Carrier carrier, String to);
+    static native FileTransfer create_filetransfer(Carrier carrier, String to,
+                                                   FileTransferInfo fileinfo,
+                                                   FileTransferHandler handler);
     private static native int get_error_code();
 
     /**
-     * Get a carrier session manager singleton instance.
+     * Get a carrier file transfer manager singleton instance.
      *
      * @return
-     *         A carrier session manager or nil on failure.
+     *         A carrier file transfer manager or nil on failure.
      */
     public static Manager getInstance() {
-        return sessionMgr;
+        return fileTransMgr;
     }
 
     /**
-     * Get a carrier session manager instance.
-     *
-     * This function is convinience way to get instance without interest to session request
-     * from friends.
+     * Initialize carrier file transfer manager singleton instance.
      *
      * @param
      *         carrier        Carrier node instance
-     *
-     * @return
-     *         A carrier session manager
      *
      * @throws
      *         CarrierException
@@ -73,34 +69,32 @@ public class Manager {
     }
 
     /**
-     * Initialize session manager singleton instance.
+     * Initialize carrier file transfer manager singleton instance.
      *
      * @param
      *         carrier        Carrier node instance
      * @param
-     *      handler     The interface handler for carrier session manager to comply with
+     *      handler     The interface handler for carrier file transfer manager to comply with
      *
      * @throws
      *         CarrierException
      */
     public static void initializeInstance(Carrier carrier, ManagerHandler handler)
             throws CarrierException {
-        if (sessionMgr != null && sessionMgr.carrier != carrier) {
-            sessionMgr.cleanup();
+
+        if (fileTransMgr != null && fileTransMgr.carrier != carrier) {
+            fileTransMgr.cleanup();
         }
 
-        if (sessionMgr == null) {
-            if (carrier == null)
-                throw new IllegalArgumentException();
-
-            Log.d(TAG, "Attempt to create carrier session manager instance ...");
+        if (fileTransMgr == null) {
+            Log.d(TAG, "Attempt to create carrier file transfer manager instance ...");
 
             if (!native_init(carrier, handler))
                 throw CarrierException.fromErrorCode(get_error_code());
 
-            sessionMgr = new Manager(carrier);
+            fileTransMgr = new Manager(carrier);
 
-            Log.d(TAG, "Carrier session manager instance created");
+            Log.d(TAG, "Carrier file transfer manager instance created");
         }
     }
 
@@ -116,46 +110,57 @@ public class Manager {
     }
 
     /**
-     * Clean up carrier session manager.
+     * Clean up carrier file transfer manager.
      */
     public synchronized void cleanup() {
         if (!didCleanup) {
             native_cleanup(carrier);
             carrier = null;
-            Manager.sessionMgr = null;
+            Manager.fileTransMgr = null;
             didCleanup = true;
         }
     }
 
     /**
-     * Create a new session to a friend.
+     * Create a new file transfer to a friend.
      *
-     * The session object represent a conversation handle to a friend.
+     * The file transfer object represent a conversation handle to a friend.
+     *
+     * The application must open file transfer instance before sending
+     * request/reply to transfer file.
+     *
+     * As to send request to transfer file, application may or may not feed
+     * information of the file that we want to transfer. And for receiving side,
+     * application may feed file information received from connect request
+     * callback.
      *
      * @param
      *      to          The target id(userid or userid@nodeid).
+     * @param
+     *      fileinfo    Information of the file to be transferred.
+     * @param
+     *      handler     Handler which handles events occurring during file transfer.
      *
      * @return
-     *      The new Session object
+     *      The new file transfer object
      *
      * @throws
-     *         IllegalArgumentException
      *         CarrierException
      */
-    public Session newSession(String to) throws CarrierException {
+    public FileTransfer newFileTransfer(String to, FileTransferInfo fileinfo,
+                                        FileTransferHandler handler) throws CarrierException {
 
-        if (to == null)
+        if (to == null || handler == null)
             throw new IllegalArgumentException();
 
-        Log.d(TAG, "Attempt to create a new session to:" + to);
+        Log.d(TAG, "Attempt to create a new file transfer to:" + to);
 
-        Session session = create_session(carrier, to);
-        if (session == null) {
+        FileTransfer filetransfer = create_filetransfer(carrier, to, fileinfo, handler);
+        if (filetransfer == null) {
             throw CarrierException.fromErrorCode(get_error_code());
         }
 
-        Log.d(TAG, "Session to " + to +  " created");
-
-        return session;
+        Log.d(TAG, "Filetransfer to " + to +  " created");
+        return filetransfer;
     }
 }

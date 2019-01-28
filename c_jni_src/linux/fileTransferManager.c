@@ -25,12 +25,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ela_carrier.h>
-#include <ela_session.h>
+#include <ela_filetransfer.h>
 
 #include "log.h"
 #include "utils.h"
 #include "carrierCookie.h"
-#include "sessionUtils.h"
+#include "fileTransferUtils.h"
 
 typedef struct CallbackContext {
     JNIEnv* env;
@@ -41,23 +41,24 @@ typedef struct CallbackContext {
 
 static CallbackContext callbackContext;
 
+extern jobject filetransfer_create(JNIEnv* env, jclass clazz, jobject jcarrier, jstring jto,
+                                   jobject jfileinfo, jobject jhandler);
+
 static
-void onSessionRequestCallback(ElaCarrier* carrier, const char* from, const char *bundle,
-                              const char* sdp, size_t len, void* context)
+void onFileTransferRequestCallback(ElaCarrier *carrier, const char *from,
+                                   const ElaFileTransferInfo *fileinfo, void *context)
 {
     CallbackContext* cc = (CallbackContext*)context;
     int needDetach = 0;
+    int rc;
     JNIEnv* env;
     jstring jfrom;
-    jstring jsdp;
+    jobject jfileInfo = NULL;
 
     assert(carrier);
     assert(from);
-    // assert(!bundle);
-    assert(sdp);
 
     (void)carrier;
-    (void)len;
 
     env = attachJvm(&needDetach);
     if (!env) {
@@ -71,27 +72,30 @@ void onSessionRequestCallback(ElaCarrier* carrier, const char* from, const char 
         return;
     }
 
-    jsdp = (*env)->NewStringUTF(env, sdp);
-    if (!jsdp) {
-        (*env)->DeleteLocalRef(env, jfrom);
-        detachJvm(env, needDetach);
-        return;
+    if (fileinfo) {
+        rc = newJavaFileTransferInfo(env, fileinfo, &jfileInfo) ;
+        if (!rc) {
+            (*env)->DeleteLocalRef(env, jfrom);
+            detachJvm(env, needDetach);
+            return;
+        }
     }
 
-    if (!callVoidMethod(env, cc->clazz, cc->handler, "onSessionRequest",
-                        "("_W("Carrier;")_J("String;")_J("String;)V"),
-                        cc->carrier, jfrom, jsdp)) {
-        logE("Can not call method:\n\tvoid onSessionRequest(Carrier, String, String)");
+    if (!callVoidMethod(env, cc->clazz, cc->handler, "onConnectRequest",
+                        "("_W("Carrier;")_J("String;")_F("FileTransferInfo;)V"),
+                        cc->carrier, jfrom, jfileInfo)) {
+        logE("Can not call method:\n\tvoid onConnectRequest(Carrier, String, FileTransferInfo)");
     }
 
-    (*env)->DeleteLocalRef(env, jsdp);
     (*env)->DeleteLocalRef(env, jfrom);
+    if (jfileInfo)
+        (*env)->DeleteLocalRef(env, jfileInfo);
 
     detachJvm(env, needDetach);
 }
 
 static
-bool callbackCtxtSet(CallbackContext* hc, JNIEnv* env, jobject jcarrier, jobject jhandler)
+bool callbackCtxSet(CallbackContext* hc, JNIEnv* env, jobject jcarrier, jobject jhandler)
 {
 
     jclass lclazz;
@@ -129,7 +133,7 @@ errorExit:
 }
 
 static
-void callbackCtxtCleanup(CallbackContext* cc, JNIEnv* env)
+void callbackCtxCleanup(CallbackContext* cc, JNIEnv* env)
 {
     assert(cc);
 
@@ -142,7 +146,7 @@ void callbackCtxtCleanup(CallbackContext* cc, JNIEnv* env)
 }
 
 static
-jboolean sessionMgrInit(JNIEnv* env, jclass clazz, jobject jcarrier, jobject jhandler)
+jboolean fileTransferMgrInit(JNIEnv* env, jclass clazz, jobject jcarrier, jobject jhandler)
 {
     CallbackContext *hc = NULL;
     ElaCarrier *carrier = NULL;
@@ -155,26 +159,17 @@ jboolean sessionMgrInit(JNIEnv* env, jclass clazz, jobject jcarrier, jobject jha
     carrier = getCarrier(env, jcarrier);
     memset(&callbackContext, 0, sizeof(callbackContext));
 
-
     if (jhandler) {
         hc = (CallbackContext*)&callbackContext;
-        if (!callbackCtxtSet(hc, env, jcarrier, jhandler)) {
+        if (!callbackCtxSet(hc, env, jcarrier, jhandler)) {
             setErrorCode(ELA_GENERAL_ERROR(ELAERR_LANGUAGE_BINDING));
             return JNI_FALSE;
         }
     }
 
-    rc = ela_session_init(carrier);
+    rc = ela_filetransfer_init(carrier, onFileTransferRequestCallback, hc);
     if (rc < 0) {
-        logE("Call ela_session_init API error");
-        setErrorCode(ela_get_error());
-        return JNI_FALSE;
-    }
-
-    rc = ela_session_set_callback(carrier, NULL, onSessionRequestCallback, hc);
-    if (rc < 0) {
-        ela_session_cleanup(carrier);
-        logE("Call ela_session_set_callback API error");
+        logE("Call ela_filetransfer_init API error");
         setErrorCode(ela_get_error());
         return JNI_FALSE;
     }
@@ -183,49 +178,20 @@ jboolean sessionMgrInit(JNIEnv* env, jclass clazz, jobject jcarrier, jobject jha
 }
 
 static
-void sessionMgrCleanup(JNIEnv* env, jclass clazz, jobject jcarrier)
+void fileTransferMgrCleanup(JNIEnv* env, jclass clazz, jobject jcarrier)
 {
     assert(jcarrier);
 
     (void)clazz;
 
-    callbackCtxtCleanup(&callbackContext, env);
-    ela_session_cleanup(getCarrier(env, jcarrier));
+    ela_filetransfer_cleanup(getCarrier(env, jcarrier));
+    callbackCtxCleanup(&callbackContext, env);
 }
 
 static
-jobject createSession(JNIEnv* env, jobject thiz, jobject jcarrier, jstring jto)
+jobject create(JNIEnv* env, jclass clazz, jobject jcarrier, jstring jto, jobject jfileinfo, jobject jhandler)
 {
-    const char *to;
-    ElaSession *session;
-    jobject jsession;
-
-    assert(jcarrier);
-    assert(jto);
-
-    (void)thiz;
-
-    to = (*env)->GetStringUTFChars(env, jto, NULL);
-    if (!to) {
-        setErrorCode(ELA_GENERAL_ERROR(ELAERR_LANGUAGE_BINDING));
-        return NULL;
-    }
-
-    session = ela_session_new(getCarrier(env, jcarrier), to);
-    (*env)->ReleaseStringUTFChars(env, jto, to);
-    if (!session) {
-        logE("Call ela_session_new API error");
-        setErrorCode(ela_get_error());
-        return NULL;
-    }
-
-    if (!newJavaSession(env, session, jto, &jsession)) {
-        ela_session_close(session);
-        setErrorCode(ELA_GENERAL_ERROR(ELAERR_LANGUAGE_BINDING));
-        return NULL;
-    }
-
-    return jsession;
+    return filetransfer_create(env, clazz, jcarrier, jto, jfileinfo, jhandler);
 }
 
 static
@@ -237,23 +203,23 @@ jint getErrorCode(JNIEnv* env, jclass clazz)
     return _getErrorCode();
 }
 
-static const char* gClassName = "org/elastos/carrier/session/Manager";
+static const char* gClassName = "org/elastos/carrier/filetransfer/Manager";
 static JNINativeMethod gMethods[] = {
-        {"native_init",      "("_W("Carrier;")_S("ManagerHandler;)Z"),  (void*)sessionMgrInit   },
-        {"native_cleanup",   "("_W("Carrier;)V"),                       (void*)sessionMgrCleanup},
-        {"create_session",   "("_W("Carrier;")_J("String;)")_S("Session;"),
-                                                                        (void*)createSession    },
-        {"get_error_code",   "()I",                                     (void*)getErrorCode     },
+    {"native_init",         "("_W("Carrier;")_F("ManagerHandler;)Z"),        (void*)fileTransferMgrInit   },
+    {"native_cleanup",      "("_W("Carrier;)V"),                             (void*)fileTransferMgrCleanup},
+    {"create_filetransfer", "("_W("Carrier;")_J("String;")_F("FileTransferInfo;")
+                            _F("FileTransferHandler;)")_F("FileTransfer;"),  (void*)create                },
+    {"get_error_code",      "()I",                                           (void*)getErrorCode          },
 };
 
-int registerCarrierSessionManagerMethods(JNIEnv* env)
+int registerCarrierFileTransferManagerMethods(JNIEnv* env)
 {
     return registerNativeMethods(env, gClassName,
                                  gMethods,
                                  sizeof(gMethods) / sizeof(gMethods[0]));
 }
 
-void unregisterCarrierSessionManagerMethods(JNIEnv* env)
+void unregisterCarrierFileTransferManagerMethods(JNIEnv* env)
 {
     jclass clazz = (*env)->FindClass(env, gClassName);
     if (clazz)

@@ -20,42 +20,19 @@
  * SOFTWARE.
  */
 
-#ifndef __CARRIER_UTILS_H__
-#define __CARRIER_UTILS_H__
+#ifndef __FILE_TRANSFER_UTILS_H__
+#define __FILE_TRANSFER_UTILS_H__
 
 #include <jni.h>
 #include "ela_carrier.h"
+#include "ela_filetransfer.h"
 
-typedef struct BootstrapHelper {
-    char *ipv4;
-    char *ipv6;
-    char *port;
-    char *public_key;
-} BootstrapHelper;
+int newNativeFileTransferInfo(JNIEnv* env, const jobject jfileinfo, ElaFileTransferInfo* fileinfo);
 
-typedef struct OptionsHelper {
-    int udp_enabled;
-    char* persistent_location;
-    size_t  bootstraps_size;
-    BootstrapHelper *bootstraps;
-} OptionsHelper;
+int newJavaFileTransferState(JNIEnv* env, FileTransferConnection state, jobject* jstate);
 
-int getOptionsHelper(JNIEnv* env, jobject jopts, OptionsHelper* opts);
+int newJavaFileTransferInfo(JNIEnv* env, const ElaFileTransferInfo* fileinfo, jobject* jFileTransferInfo);
 
-void cleanupOptionsHelper(OptionsHelper* opts);
+int newJavaFileTransfer(JNIEnv* env, jobject* jFileTransfer);
 
-int getNativeUserInfo(JNIEnv* env, jobject juserInfo, ElaUserInfo* ui);
-
-int newJavaUserInfo(JNIEnv* env, const ElaUserInfo* userInfo, jobject* juserInfo);
-
-int newJavaFriendInfo(JNIEnv* env, const ElaFriendInfo* friendInfo, jobject* jfriendInfo);
-
-int newJavaConnectionStatus(JNIEnv* env, ElaConnectionStatus status, jobject* jstatus);
-
-int newJavaPresenceStatus(JNIEnv* env, ElaPresenceStatus presence, jobject* jpresence);
-
-int newNativePresenceStatus(JNIEnv *env, jobject jpresence, ElaPresenceStatus *presence);
-
-int newJavaGroupPeerInfo(JNIEnv* env, const ElaGroupPeer* peer, jobject* jpeerInfo);
-
-#endif //__CARRIER_UTILS_H__
+#endif //__FILE_TRANSFER_UTILS_H__
